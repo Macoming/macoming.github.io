@@ -10,12 +10,8 @@
     <a id="search" class="dosearch" role="button">
         <svg class="icon-search"><use xlink:href="#icon-search"></use></svg>
     </a>
-</header>
 
-<div id="mask" class="overlay"></div>
-
-{% include menu.html %}
-<p>
+    <p>
       {% if site.github_username %}
         <a href="https://github.com/{{ site.github_username }}" title="Github">
           <svg><use xlink:href="#icon-github"></use></svg>
@@ -47,4 +43,9 @@
         </a>
       {% endif %}
     </p>
+</header>
+
+<div id="mask" class="overlay"></div>
+
+{% include menu.html %}
 {% include search.html %}
