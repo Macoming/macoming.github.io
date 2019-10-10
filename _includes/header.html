@@ -6,24 +6,20 @@
         <a href="{{ site.baseurl }}/">
             {{ site.name }} <!--<span class="version">v2.0.0</span>-->
         </a>
-        <p>
-        {% if site.github_username %}
+        
+    </h1>
+
+    {% if site.github_username %}
         <a class="dosearch" href="https://github.com/{{ site.github_username }}" title="Github">
-          <svg><use xlink:href="#icon-github"></use></svg>
+          <svg class="icon-search"><use xlink:href="#icon-github"></use></svg>
         </a>
         {% endif %}
-        </p>
-    </h1>
     <a id="search" class="dosearch" role="button">
         <svg class="icon-search"><use xlink:href="#icon-search"></use></svg>
     </a>
 
 </header>
 
-{% assign social_urls = '' %}
-{% if site.github_username %}
-    {% assign social_urls = social_urls | append: '"https://github.com/' | append: site.github_username | append: '",' %}
-{% endif %}
 
 <div id="mask" class="overlay"></div>
 
