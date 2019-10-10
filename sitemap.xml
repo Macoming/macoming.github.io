@@ -1,34 +1,87 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    {% for page in site.pages %}
-        <url>
-            <loc>{{ page.url | prepend: site.baseurl | prepend: site.url }}</loc>
-            {% if page.layout == 'main' %}
-                <changefreq>weekly</changefreq>
-                <priority>1</priority>
-                <lastmod>{{ site.time | date: "%Y-%m-%d" }}</lastmod>
-            {% else %}
-                <changefreq>monthly</changefreq>
-                <priority>0.5</priority>
-            {% endif %}
-        </url>
-    {% endfor %}
-    {% for post in site.posts %}
-        <url>
-            <loc>{{ post.url | prepend: site.baseurl | prepend: site.url }}</loc>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-            <lastmod>{{ post.date | date: "%Y-%m-%d" }}</lastmod>
-        </url>
-    {% endfor %}
-    {% for author in site.authors %}
-        <url>
-            <loc>{{ author.url | prepend: site.baseurl | prepend: site.url }}</loc>
-            <changefreq>monthly</changefreq>
-            <priority>0.5</priority>
-        </url>
-    {% endfor %}
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://macod.club/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://macod.club/about/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/staff/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/contact/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/touch_screen/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/Linux/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/product_Swift.h/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/tags/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/Swift-bridging-to-Clang-LLVM/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/Bridging_and_Unmanaged/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/qrcode/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/%E5%88%9B%E5%BB%BA%E7%A7%81%E6%9C%89cocoapods%E4%BB%93%E5%BA%93/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/%E6%89%93%E5%8C%85%E7%BB%84%E4%BB%B6%E5%88%B0cocoapods/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://macod.club/authors/thiagorossener/</loc>
+  <lastmod>2019-10-10T08:52:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
 </urlset>
