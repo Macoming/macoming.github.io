@@ -1,55 +1,18 @@
 # Site Settings
-name: Maco
-title: Maco's Blogs
-description: Jekflix is a template for Jekyll inspired by Netflix and made by Thiago Rossener.
-tags:
-  - blog
-  - template
-  - jekyll
-  - theme
-  - netlify
-email: zhangzhifang1013@gmail.com
-disqus_username: Maco
-show_hero: true
-
-
+#=include site.yml
 
 # Social Media Settings
 # Remove the item if you don't need it
-github_username: SuperHaiFeng
-facebook_username: Swifal
-twitter_username: Macode520
-instagram_username: 
-linkedin_username: MacoZhang
-medium_username: 
-
-# Comment
-comment:
-    disqus: Maco
-
+#=include social.yml
 
 # Theme Settings
-themeColor: "#ff0a16"
-primaryDark: "#141414"
-accentDark: "#ffffff"
-lightGray: "#f2f2f2"
-texts: "#333333"
-
+#=include theme.yml
 
 # Posts Settings
-show_time_bar: false
-show_modal_on_exit: false
-show_modal_on_finish_post: false
-two_columns_layout: true
-
+#=include posts.yml
 
 # Advanced Settings
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site
-google_analytics: "UA-148217509-1"
-language: "en"
-
-
+#=include advanced.yml
 
 # Build settings
 markdown: kramdown
