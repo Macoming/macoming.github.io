@@ -4,14 +4,12 @@ layout: post
 title: "手机触摸屏实现原理"
 date: 2019-10-8
 desc: 这篇文章旨在介绍我们常用的智能手机触摸屏的实现原理
-image: https://raw.githubusercontent.com/SuperHaiFeng/superhaifeng.github.io/master/assets/TitleImg/oc-swift-title.png
-optimized_image: 
+image: /assets/TitleImg/mac.png
+optimized_image: /assets/TitleImg/mac.png
 description: 这篇文章旨在介绍我们常用的智能手机触摸屏的实现原理
 category: touch
 
 ---
-
-![](../../../../assets/TitleImg/mac.png)
 
 对于屏幕，在生活中随处可见，电脑、电视、手机等等，我们今天要介绍一下平时用的手机触摸屏或者电脑触摸屏的基本原理。
 
