@@ -6,13 +6,8 @@
         <a href="{{ site.baseurl }}/">
             {{ site.name }} <!--<span class="version">v2.0.0</span>-->
         </a>
-    </h1>
-    <a id="search" class="dosearch" role="button">
-        <svg class="icon-search"><use xlink:href="#icon-search"></use></svg>
-    </a>
 
-    <p>
-      {% if site.github_username %}
+        {% if site.github_username %}
         <a href="https://github.com/{{ site.github_username }}" title="Github">
           <svg><use xlink:href="#icon-github"></use></svg>
         </a>
@@ -42,7 +37,11 @@
           <svg><use xlink:href="#icon-linkedin"></use></svg>
         </a>
       {% endif %}
-    </p>
+    </h1>
+    <a id="search" class="dosearch" role="button">
+        <svg class="icon-search"><use xlink:href="#icon-search"></use></svg>
+    </a>
+
 </header>
 
 <div id="mask" class="overlay"></div>
