@@ -1,54 +1,212 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Run jekyll site at http://127.0.0.1:4000
 #
-# Run jekyll serve and then launch the site
+# Requirement:
+#   Option '-r, --realtime' needs fswatch › http://emcrisostomo.github.io/fswatch/
+#
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+# © 2019 Cotes Chung
+# Published under MIT License
 
-prod=false
-command="bundle exec jekyll s -l"
-host="127.0.0.1"
+set -eu
 
-help() {
+WORK_DIR="$(dirname "$(dirname "$(realpath "$0")")")"
+
+CONTAINER="${WORK_DIR}/.container"
+SYNC_TOOL=_scripts/sh/sync_monitor.sh
+
+RUN_DIR="$WORK_DIR"
+USE_CONTAINER=false
+
+cmd_base="bundle exec jekyll s"
+cmd="$cmd_base"
+JEKYLL_DOCKER_HOME="/srv/jekyll"
+
+realtime=false
+docker=false
+incremental=true
+
+_help() {
   echo "Usage:"
   echo
-  echo "   bash /path/to/run [options]"
+  echo "   bash run.sh [options]"
   echo
   echo "Options:"
-  echo "     -H, --host [HOST]    Host to bind to."
-  echo "     -p, --production     Run Jekyll in 'production' mode."
-  echo "     -h, --help           Print this help information."
+  echo "     -H, --host    <HOST>    Host to bind to"
+  echo "     -P, --port    <PORT>    Port to listen on"
+  echo "     -b, --baseurl <URL>     The site relative url that start with slash, e.g. '/project'"
+  echo "     -h, --help              Print the help information"
+  echo "     -t, --trace             Show the full backtrace when an error occurs"
+  echo "     -r, --realtime          Make the modified content updated in real time"
+  echo "         --no-incremental   Disable Jekyll incremental build"
+  echo "         --docker            Run within docker"
+}
+
+_cleanup() {
+  if $USE_CONTAINER && [[ -d $CONTAINER ]]; then
+    rm -rf "$CONTAINER"
+  fi
+  ps aux | grep fswatch | awk '{print $2}' | xargs kill -9 > /dev/null 2>&1
+}
+
+_setup_docker() {
+  # docker image `jekyll/jekyll` based on Alpine Linux
+  echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+  ## CN Apline sources mirror
+  # sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+  apk update
+  apk add yq
+}
+
+_init() {
+  cd "$WORK_DIR"
+
+  if $docker; then
+    USE_CONTAINER=true
+  fi
+
+  if $USE_CONTAINER; then
+    if [[ -d $CONTAINER ]]; then
+      rm -rf "$CONTAINER"
+    fi
+
+    mkdir "$CONTAINER"
+    cp -r ./* "$CONTAINER"
+    cp -r ./.git "$CONTAINER"
+    RUN_DIR="$CONTAINER"
+
+    if $docker; then
+      local _image_user=$(stat -c "%U" "$JEKYLL_DOCKER_HOME"/.)
+
+      if [[ $_image_user != $(whoami) ]]; then
+        # under Docker for Linux
+        chown -R "$(stat -c "%U:%G" "$JEKYLL_DOCKER_HOME"/.)" "$CONTAINER"
+      fi
+
+    fi
+  else
+    RUN_DIR="$WORK_DIR"
+  fi
+
+  trap _cleanup INT
+}
+
+_check_unset() {
+  if [[ -z ${1:+unset} ]]; then
+    _help
+    exit 1
+  fi
+}
+
+_check_command() {
+  if [[ -z $(command -v "$1") ]]; then
+    echo "Error: command '$1' not found !"
+    echo "Hint: Get '$1' on <$2>"
+    exit 1
+  fi
+}
+
+_run() {
+  cd "$RUN_DIR"
+  bash _scripts/sh/create_pages.sh
+  bash _scripts/sh/dump_lastmod.sh
+
+  if $realtime && $USE_CONTAINER; then
+
+    exclude_regex="\/\..*"
+
+    if [[ $OSTYPE == "darwin"* ]]; then
+      exclude_regex="/\..*" # darwin gcc treat regex '/' as character '/'
+    fi
+
+    fswatch -e "$exclude_regex" -0 -r \
+      --event Created --event Removed \
+      --event Updated --event Renamed \
+      --event MovedFrom --event MovedTo \
+      "$WORK_DIR" | xargs -0 -I {} bash "./${SYNC_TOOL}" {} "$WORK_DIR" . &
+  elif $realtime; then
+    echo "[INFO] Realtime mode is always on when working directly in the repo; '-r' is ignored."
+  fi
+
+  if $docker; then
+    cmd+=" -H 0.0.0.0"
+  else
+    cmd+=" -l -o"
+  fi
+
+  echo "\$ $cmd"
+  eval "$cmd"
+}
+
+main() {
+  if $docker; then
+    _setup_docker
+  fi
+
+  _init
+
+  if $incremental; then
+    cmd+=" --incremental"
+  fi
+
+  _run
 }
 
 while (($#)); do
   opt="$1"
   case $opt in
-  -H | --host)
-    host="$2"
-    shift 2
-    ;;
-  -p | --production)
-    prod=true
-    shift
-    ;;
-  -h | --help)
-    help
-    exit 0
-    ;;
-  *)
-    echo -e "> Unknown option: '$opt'\n"
-    help
-    exit 1
-    ;;
+    -H | --host)
+      _check_unset "$2"
+      cmd+=" -H $2"
+      shift # past argument
+      shift # past value
+      ;;
+    -P | --port)
+      _check_unset "$2"
+      cmd+=" -P $2"
+      shift
+      shift
+      ;;
+    -b | --baseurl)
+      _check_unset "$2"
+      if [[ $2 == \/* ]]; then
+        cmd+=" -b $2"
+      else
+        _help
+        exit 1
+      fi
+      shift
+      shift
+      ;;
+    -t | --trace)
+      cmd+=" -t"
+      shift
+      ;;
+    -r | --realtime)
+      _check_command fswatch "http://emcrisostomo.github.io/fswatch/"
+      realtime=true
+      shift
+      ;;
+    --no-incremental)
+      incremental=false
+      shift
+      ;;
+    --docker)
+      docker=true
+      shift
+      ;;
+    -h | --help)
+      _help
+      exit 0
+      ;;
+    *)
+      # unknown option
+      _help
+      exit 1
+      ;;
   esac
 done
 
-command="$command -H $host"
-
-if $prod; then
-  command="JEKYLL_ENV=production $command"
-fi
-
-if [ -e /proc/1/cgroup ] && grep -q docker /proc/1/cgroup; then
-  command="$command --force_polling"
-fi
-
-echo -e "\n> $command\n"
-eval "$command"
+main
