@@ -12,3 +12,7 @@ platforms :windows, :jruby do
 end
 
 gem "wdm", "~> 0.2.0", :platforms => [:windows]
+
+# ======= 添加下面两行 =======
+gem "jekyll-theme-chirpy"
+gem "github-pages", group: :jekyll_plugins
