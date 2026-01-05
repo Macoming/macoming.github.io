@@ -1,9 +1,0 @@
-_site
-.sass-cache
-.jekyll-metadata
-.container/
-.DS_Store
-ads.txt
-categories/
-tags/
-_data/updates.yml
