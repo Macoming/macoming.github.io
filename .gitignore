@@ -1,6 +1,7 @@
 # Bundler cache
 .bundle
 vendor
+_site
 
 # Jekyll cache
 .jekyll-cache
