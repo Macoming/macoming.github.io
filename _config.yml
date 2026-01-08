@@ -119,10 +119,10 @@ comments:
     issue_term: # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo: Macoming/macoming.github.io # <gh-username>/<repo>
-    repo_id: MDEwOlJlcG9zaXRvcnkyMTQxMTM2Mzc=
-    category: Announcements
-    category_id: DIC_kwDODMMdZc4C0uAg
+    repo: "Macoming/macoming.github.io" # <gh-username>/<repo>
+    repo_id: "MDEwOlJlcG9zaXRvcnkyMTQxMTM2Mzc="
+    category: "Announcements"
+    category_id: "DIC_kwDODMMdZc4C0uAg"
     mapping: pathname # optional, default to 'pathname'
     strict: 0 # optional, default to '0'
     input_position: bottom # optional, default to 'bottom'
