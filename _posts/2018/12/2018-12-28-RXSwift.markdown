@@ -6,7 +6,7 @@ categories: Maco
 desc: 函数式编程是种编程范式。它是通过构建函数操作数据序列...
 ---
 
-![](../../../../assets/swift_img/rxswift.png)
+![](assets/swift_img/rxswift.png)
 
 ### [函数式编程](https://en.wikipedia.org/wiki/Functional_programming)
 
@@ -75,7 +75,7 @@ numbers.filter { (num : Int) -> Bool in
 
 一种编程范式，数据流编程的一个子集，基于事件“推送”变化。是**通过异步和数据流来构建事务关系的编程模型**，“事务的关系”是响应式编程的核心理念，“数据流”和“异步”是实现这个核心理念的关键。
 
-![](../../../../assets/swift_img/xiangying.png)
+![](assets/swift_img/xiangying.png)
 
 - 事务
 
@@ -122,7 +122,7 @@ RxSwift是一个可以帮助我们简化异步编程的框架。它拓展了观�
 
 RXSwift观察者模式如图：
 
-![](../../../../assets/swift_img/observer.jpg)
+![](assets/swift_img/observer.jpg)
 
 ### RXSwift核心：
 

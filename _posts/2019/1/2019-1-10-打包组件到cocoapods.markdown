@@ -67,7 +67,7 @@ Spec.source_files也需要填，对应我们组件都包括什么类型的文件
 
 引入成功后在pods项目中会多一个Development pods文件，本地pod库放在该文件夹下
 
-![](../../../../assets/cocoapods/cacoapodsDic.png)
+![](assets/cocoapods/cacoapodsDic.png)
 
 ### **到这里我们基本上就算完成了，接下来说一下我打包时遇到的坑**
 
@@ -75,7 +75,7 @@ Spec.source_files也需要填，对应我们组件都包括什么类型的文件
 
 1、在创建git项目的时候，必须要选择license,gitignore，一般情况下选择MIT License，因为MIT是软件授权条款（源自麻省理工学院），选择它就认为你授权了你上传的项目对外开源，被授权人有权利使用、复制、修改、合并、出版发行、散布、再授权及贩售软件及软件的副本。不选择license,上传的时候会提示找不到license，到时候验证失败无法上传。当然也可以不选择MIT，选择别的授权条款，如果选择别的，在.podspec文件中配置spec.license的时候需要修改一下type值
 
-![](../../../../assets/cocoapods/creategithub.png)
+![](assets/cocoapods/creategithub.png)
 
 2、如果出现xcrun: error: unable to find utility "simctl", not a developer tool or in PATH
 

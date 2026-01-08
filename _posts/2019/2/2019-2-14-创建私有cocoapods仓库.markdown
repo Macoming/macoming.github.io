@@ -13,7 +13,7 @@ desc: 我之前写了一篇打包公有组件到cocoapods仓库，但是随着�
 
 首先我们需要在我们的项目管理（git或者svn）中创建我们自己的组件版本库（repo），如果已经创建过了，就无需再创建了，以下以码云为例（因为私有库免费）：
 
-![](../../../../assets/cocoapods/privateRepo.png)
+![](assets/cocoapods/privateRepo.png)
 
 回到终端，将私有版本库添加到本地repo中，repo就是repository的缩写
 

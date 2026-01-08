@@ -32,7 +32,7 @@ paginate: true
   4.Apple要收回去工具链的控制 （lldb, lld…）: Apple在早起从GCC前端到LLVM后端的编译器，到Clang-LVVM的编译器，以后后来的GDB的替换，一步一步收回对编译工具链的控制，也为Swift 的出现奠定基础。
 
 - Three-Phase 编译器架构
-  ![](../../../../assets/Clang-LLVM/three-phase.png)
+  ![](assets/Clang-LLVM/three-phase.png)
 
   上图是最简单的三段式编译器架构。
 
@@ -47,12 +47,12 @@ paginate: true
   就是如果你有M种语言(C、C++、Objective-C…)，N种架构(armv7、armv7s、arm64、i386、x86_64…)，那么你就有M * N中编译方式需要处理，显然是不合理的。
 
 - **apple** 的 `Clang/Swift - LLVM` 编译器架构
-  ![](../../../../assets/Clang-LLVM/Swift-LLVM.png)
+  ![](assets/Clang-LLVM/Swift-LLVM.png)
 
   其中优化器部分(Common Optimizer)是共享的。而对于每一种语言都有其前端部分，假如新有一门语言，只需要实现该语言的前端模块；如果新出一台设备，它的架构不同，那么也只需要单独完成其后端模块即可。改动非常小，不会做重复的工作。
 
   下面详解：
-  ![](../../../../assets/Clang-LLVM/Swift-LLVM2.png)
+  ![](assets/Clang-LLVM/Swift-LLVM2.png)
 
   蓝色的部分：C语言家族系列的前端，属于Clang部分。
 
@@ -63,10 +63,10 @@ paginate: true
 - 代码规模
   Clang + LLVM 代码模块总共有400W行代码，其中主体部分是C++写的，大概有235W行。如果将所有的target，lib等文件编译出来，大概有近20G的大小：
 
-  ![](../../../../assets/Clang-LLVM/Clang+LLVM.png)
+  ![](assets/Clang-LLVM/Clang+LLVM.png)
 
   对比Swift Frontend 代码规模，就少很多，只有43W行左右。可能在后端，比如优化器策略，生成机器码部分就有很多代码：
-  ![](../../../../assets/Clang-LLVM/Swift-fronted.png)
+  ![](assets/Clang-LLVM/Swift-fronted.png)
 
 - Clang命令Clang在概念上是编译器前端，同时，在命令行中也作为一个“黑盒”的 Driver;
 
@@ -75,10 +75,10 @@ paginate: true
   方便从GCC迁移过来。
 
   当我们点击run命令以后，如下图：
-  ![](../../../../assets/Clang-LLVM/Run-Clang.png)
+  ![](assets/Clang-LLVM/Run-Clang.png)
 
   就是我们在**build setting**中的一些设置，组装成命令，下面可以看到是一个 oc文件在arc环境下的编译过程：
-  ![](../../../../assets/Clang-LLVM/Run-Clang2.png)
+  ![](assets/Clang-LLVM/Run-Clang2.png)
 
 - 拆解编译过程
 
@@ -105,7 +105,7 @@ paginate: true
 
    只会做预处理步骤，不往后面走，如下
 
-   ![](../../../../assets/Clang-LLVM/Clang-main.png)
+   ![](assets/Clang-LLVM/Clang-main.png)
 
    可以看到一个头文件要导入很多行代码，这里就要说到pch文件。本身Apple给出这个文件，是让我们放入Foundation或者UIKit等这些根本不会变的库，优化编译过程，但是开发者却各种宏，各种头文件导入，导致编译速度很慢。以至于后来苹果删除了这个文件，只能开发者自己创建。但是苹果提供modules这个概念，可以通过以下命令打开：
 
@@ -114,7 +114,7 @@ paginate: true
    ```
 
    默认把一些文件打包成库文件, 在**build setting**中默认打开的，我们可以用@import Foundation:
-   ![](../../../../assets/Clang-LLVM/Clang-main2.png)
+   ![](assets/Clang-LLVM/Clang-main2.png)
 
 2. **Lexical Analysis - 词法分析**
 
@@ -128,7 +128,7 @@ paginate: true
    $ clang -fmodules -fayntax-only -Xclang -dump-tokens main.m
    ```
 
-   ![](../../../../assets/Clang-LLVM/Lexical-Analysis.png)
+   ![](assets/Clang-LLVM/Lexical-Analysis.png)
 
 3. **Analysis - 语法分析**
    语法分析，在Clang中有Parser和Sema两个模块配合完成，验证语法是否正确，并给出正确的提示。这就是Clang标榜GCC，自己的语法提示友好的体现。
@@ -141,11 +141,11 @@ paginate: true
    $ clang -fmodules -fsyntax-only -Xclang -ast-dump main.m
    ```
 
-   ![](../../../../assets/Clang-LLVM/Analysis.png)
+   ![](assets/Clang-LLVM/Analysis.png)
 
    可以通过语法树，反写回源码，如下图：
 
-   ![](../../../../assets/Clang-LLVM/AST.png)
+   ![](assets/Clang-LLVM/AST.png)
 
 4. **Static Analysis - 静态分析**(不是必须的)
 
@@ -155,7 +155,7 @@ paginate: true
 
    在Xcode中如下操作可以实现：
 
-   ![](../../../../assets/Clang-LLVM/Static-Analysis.png)
+   ![](assets/Clang-LLVM/Static-Analysis.png)
 
 5. **CodeGen - IR 代码生成**CodeGen负责将语法树从顶至下遍历，翻译成LLVM IR，LLVMIR 是Frontend的输入，也是LLVM Backend 的输入，是前后端的桥接语言。
 
@@ -189,7 +189,7 @@ paginate: true
 
    14.为每个拥有 ivar 的Class 合成.cxx_destructor 方法来自动释放类的成员变量，代替MRC 时代下的”self.xxx = nil”
 
-   ![](../../../../assets/Clang-LLVM/Example.png)
+   ![](assets/Clang-LLVM/Example.png)
 
    终端输入：
 
@@ -199,7 +199,7 @@ paginate: true
 
    输入如下： 
 
-   ![](../../../../assets/Clang-LLVM/CodeGen.png)
+   ![](assets/Clang-LLVM/CodeGen.png)
 
 6. **LVVM Bitcode - 生成字节码**
    输入命令：
@@ -208,7 +208,7 @@ paginate: true
    $ clang -emit-llvm -c main.m -o main.bc
    ```
 
-   ![](../../../../assets/Clang-LLVM/LVVM-Bitcode.png)
+   ![](assets/Clang-LLVM/LVVM-Bitcode.png)
 
    相信大家在iOS 9之后都听过这个概念，其实就是对IR生成二进制的过程。
 
@@ -220,7 +220,7 @@ paginate: true
    $ clang -S -fobjc-arc main.m -o main.s
    ```
 
-   ![](../../../../assets/Clang-LLVM/Assemble.png)
+   ![](assets/Clang-LLVM/Assemble.png)
 
 8. **Assemble - 生成Target相关 Object(Mach-o)** 
    终端输入：
@@ -229,7 +229,7 @@ paginate: true
    $ clang -fmodules -c main.m -o main.o
    ```
 
-   ![](../../../../assets/Clang-LLVM/Object(Mach-o).png)
+   ![](assets/Clang-LLVM/Object(Mach-o).png)
 
    汇编的main.o的形式。
 
@@ -244,11 +244,11 @@ paginate: true
 
 
 
-   ![](../../../../assets/Clang-LLVM/Executable.png)
+   ![](assets/Clang-LLVM/Executable.png)
 
 
 
-   ![](../../../../assets/Clang-LLVM/end.png)
+   ![](assets/Clang-LLVM/end.png)
 
 
    至此，我猜测可能桥接文件是在Clang阶段，将OC文件进行编译，生成语法树，然后再返成Swift能识别的类文件。
