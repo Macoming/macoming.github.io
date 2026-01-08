@@ -13,7 +13,7 @@ desc: 大家搞技术的肯定都有自己的博客，比如什么csdn、简书�
 
 **1、在github创建项目**
 
-首先需要再github中创建一个github page，命名方式以[username.github.io](http://username.github.io)的形式命名，否则会出现不知名的错误，创建完成后克隆到本地，命令行到本地的存储库.io文件下，使用`echo “hello world”> index.html`创建一个index.html文件，然后保存，使用命令行把本地创建的文件提交到master分支，。然后使用[https://username/github.io就可以访问index.html网页了。这才是最开始的一步，只是能访问基本的网页，但是怎么写博客哪，然后又是在什么目录下写，使用什么工具写哪，下面就介绍jekyll。
+首先需要再github中创建一个github page，命名方式以username.github.io的形式命名，否则会出现不知名的错误，创建完成后克隆到本地，命令行到本地的存储库.io文件下，使用`echo “hello world”> index.html`创建一个index.html文件，然后保存，使用命令行把本地创建的文件提交到master分支，。然后使用https://username/github.io就可以访问index.html网页了。这才是最开始的一步，只是能访问基本的网页，但是怎么写博客哪，然后又是在什么目录下写，使用什么工具写哪，下面就介绍jekyll。
 
 注意⚠️：提交代码后在setting页面下面的github page选项下选择theme后才可以正确访问
 
