@@ -1,0 +1,56 @@
+---
+---
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+
+// 放在文件最后面！！！
+
+// 亮色模式（light）覆盖
+[data-mode=light] {
+  --primary: #0066cc;           // 主色
+  --btn-primary-bg: #0066cc;
+  --btn-primary-hover-bg: #0055aa;
+  --link-color: #0066cc;
+  --link-hover-color: #004488;
+
+  --body-bg: #ffffff;
+  --text-color: #333333;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+}
+
+// 暗色模式（dark）覆盖
+[data-mode=dark] {
+  --primary: #6699ff;           // 暗色模式的主色可以调浅一点比较好看
+  --btn-primary-bg: #6699ff;
+  --btn-primary-hover-bg: #5588ee;
+
+  --body-bg: #121212;
+  --text-color: #e0e0e0;
+  --text-muted: #a0a0a0;
+  --border-color: #333333;
+}
+
+// 如果你想一次定义很多地方都用的主色系（更现代写法，推荐）
+:root {
+  --hue: 210;          // 色相（0~360），蓝紫色≈210，绿色≈140，橙色≈30
+  --saturation: 80%;   // 饱和度
+}
+
+[data-mode=light] {
+  --primary: hsl(var(--hue), var(--saturation), 55%);
+  --link-color: hsl(var(--hue), var(--saturation), 50%);
+}
+
+[data-mode=dark] {
+  --primary: hsl(var(--hue), var(--saturation), 65%);
+  --link-color: hsl(var(--hue), var(--saturation), 70%);
+}
