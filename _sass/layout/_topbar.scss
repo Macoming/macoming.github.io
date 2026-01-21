@@ -4,6 +4,11 @@
 @use '../abstracts/placeholders';
 
 #topbar-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 75%;
+
   height: v.$topbar-height;
   background-color: var(--topbar-bg);
 
@@ -11,6 +16,7 @@
     @include mx.slide(top 0.2s ease);
 
     left: 0;
+    width: 100%;
   }
 }
 

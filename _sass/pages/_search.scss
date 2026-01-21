@@ -30,7 +30,8 @@ search {
 
   @include bp.xxxl {
     margin-right: calc(
-      v.$main-content-max-width / 4 - v.$search-max-width - 0.75rem
+      //v.$main-content-max-width / 4 - v.$search-max-width - 0.75rem
+      0rem
     );
   }
 }
